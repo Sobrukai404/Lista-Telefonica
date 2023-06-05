@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 class Contato
 {
@@ -76,55 +77,109 @@ class Program
     {
         Agenda agenda = new Agenda();
 
-        agenda.AdicionarContato("João", 123456789);
-        agenda.AdicionarContato("Maria", 987654321);
-        agenda.AdicionarContato("Ana", 456789123);
-
-        // Exemplo de utilização das funcionalidades
-
-        // Buscar contato por telefone
-        Contato contatoTelefone = agenda.BuscarContatoPorTelefone(987654321);
-        if (contatoTelefone != null)
+        bool executar = true;
+        while (executar)
         {
-            Console.WriteLine("Contato encontrado por telefone: " + contatoTelefone.Nome);
-        }
-        else
-        {
-            Console.WriteLine("Nenhum contato encontrado por telefone.");
-        }
+            Console.WriteLine("MENU");
+            Console.WriteLine("1. Adicionar contato");
+            Console.WriteLine("2. Excluir contato");
+            Console.WriteLine("3. Ver lista telefônica");
+            Console.WriteLine("4. Procurar contato por nome");
+            Console.WriteLine("5. Procurar contato por telefone");
+            Console.WriteLine("6. Ordenar contatos por nome");
+            Console.WriteLine("7. Ordenar contatos por telefone");
+            Console.WriteLine("8. Sair");
+            Console.WriteLine();
 
-        // Buscar contatos por nome
-        List<Contato> contatosNome = agenda.BuscarContatoPorNome("João");
-        if (contatosNome.Count > 0)
-        {
-            Console.WriteLine("Contatos encontrados por nome:");
-            foreach (Contato contato in contatosNome)
+            Console.WriteLine("Escolha uma opção: ");
+            string opcao = Console.ReadLine();
+            Console.WriteLine();
+
+            switch (opcao)
             {
-                Console.WriteLine(contato.Nome + " - " + contato.Telefone);
+                case "1":
+                    Console.WriteLine("Digite o nome do contato:");
+                    string nome = Console.ReadLine();
+                    Console.WriteLine("Digite o telefone do contato:");
+                    int telefone = Convert.ToInt32(Console.ReadLine());
+                    agenda.AdicionarContato(nome, telefone);
+                    Console.WriteLine("Contato adicionado com sucesso!");
+                    break;
+                case "2":
+                    Console.WriteLine("Digite o telefone do contato que deseja excluir:");
+                    int telefoneExclusao = Convert.ToInt32(Console.ReadLine());
+                    agenda.ExcluirContatoPorTelefone(telefoneExclusao);
+                    Console.WriteLine("Contato excluído com sucesso!");
+                    break;
+                case "3":
+                    List<Contato> listaContatos = agenda.ListarTodosContatos();
+                    Console.WriteLine("Lista Telefônica:");
+                    foreach (Contato contato in listaContatos)
+                    {
+                        Console.WriteLine("ID: " + contato.ID);
+                        Console.WriteLine("Nome: " + contato.Nome);
+                        Console.WriteLine("Telefone: " + contato.Telefone);
+                        Console.WriteLine("-------------------------------");
+                    }
+                    break;
+                case "4":
+                    Console.WriteLine("Digite o nome do contato que deseja procurar:");
+                    string nomeProcura = Console.ReadLine();
+                    List<Contato> contatosPorNome = agenda.BuscarContatoPorNome(nomeProcura);
+                    Console.WriteLine("Contatos encontrados:");
+                    foreach (Contato contato in contatosPorNome)
+                    {
+                        Console.WriteLine("Nome: " + contato.Nome + " - Telefone: " + contato.Telefone);
+                    }
+                    break;
+                case "5":
+                    Console.WriteLine("Digite o telefone do contato que deseja procurar:");
+                    int telefoneProcura = Convert.ToInt32(Console.ReadLine());
+                    Contato contatoPorTelefone = agenda.BuscarContatoPorTelefone(telefoneProcura);
+                    if (contatoPorTelefone != null)
+                    {
+                        Console.WriteLine("Contato encontrado:");
+                        Console.WriteLine("ID: " + contatoPorTelefone.ID);
+                        Console.WriteLine("Nome: " + contatoPorTelefone.Nome);
+                        Console.WriteLine("Telefone: " + contatoPorTelefone.Telefone);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Nenhum contato encontrado para o telefone informado.");
+                    }
+                    break;
+                case "6":
+                    List<Contato> contatosOrdenadosPorNome = agenda.OrdenarContatosPorNome();
+                    Console.WriteLine("Contatos ordenados por nome:");
+                    foreach (Contato contato in contatosOrdenadosPorNome)
+                    {
+                        Console.WriteLine("ID: " + contato.ID);
+                        Console.WriteLine("Nome: " + contato.Nome);
+                        Console.WriteLine("Telefone: " + contato.Telefone);
+                        Console.WriteLine("-------------------------------");
+                    }
+                    break;
+                case "7":
+                    List<Contato> contatosOrdenadosPorTelefone = agenda.OrdenarContatosPorTelefone();
+                    Console.WriteLine("Contatos ordenados por telefone:");
+                    foreach (Contato contato in contatosOrdenadosPorTelefone)
+                    {
+                        Console.WriteLine("ID: " + contato.ID);
+                        Console.WriteLine("Nome: " + contato.Nome);
+                        Console.WriteLine("Telefone: " + contato.Telefone);
+                        Console.WriteLine("-------------------------------");
+                    }
+                    break;
+                case "8":
+                    executar = false;
+                    break;
+                default:
+                    Console.WriteLine("Opção inválida. Tente novamente.");
+                    break;
             }
-        }
-        else
-        {
-            Console.WriteLine("Nenhum contato encontrado por nome.");
-        }
 
-        // Excluir contato por telefone
-        agenda.ExcluirContatoPorTelefone(123456789);
-
-        // Ordenar contatos por nome
-        List<Contato> contatosOrdenadosNome = agenda.OrdenarContatosPorNome();
-        Console.WriteLine("Contatos ordenados por nome:");
-        foreach (Contato contato in contatosOrdenadosNome)
-        {
-            Console.WriteLine(contato.Nome + " - " + contato.Telefone);
-        }
-
-        // Listar todos os contatos
-        List<Contato> todosContatos = agenda.ListarTodosContatos();
-        Console.WriteLine("Todos os contatos:");
-        foreach (Contato contato in todosContatos)
-        {
-            Console.WriteLine(contato.Nome + " - " + contato.Telefone);
+            Console.WriteLine("Operação concluída com sucesso!");
+            Console.WriteLine();
         }
     }
 }
