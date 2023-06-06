@@ -83,7 +83,7 @@ class Program
             Console.WriteLine("MENU");
             Console.WriteLine("1. Adicionar contato");
             Console.WriteLine("2. Excluir contato");
-            Console.WriteLine("3. Ver lista telefônica");
+            Console.WriteLine("3. Ver contatos");
             Console.WriteLine("4. Procurar contato por nome");
             Console.WriteLine("5. Procurar contato por telefone");
             Console.WriteLine("6. Ordenar contatos por nome");
