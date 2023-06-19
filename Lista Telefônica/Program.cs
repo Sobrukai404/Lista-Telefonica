@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 
 class Contato
 {
@@ -82,13 +81,14 @@ class Program
         {
             Console.WriteLine("MENU");
             Console.WriteLine("1. Adicionar contato");
-            Console.WriteLine("2. Excluir contato");
-            Console.WriteLine("3. Ver contatos");
-            Console.WriteLine("4. Procurar contato por nome");
-            Console.WriteLine("5. Procurar contato por telefone");
-            Console.WriteLine("6. Ordenar contatos por nome");
-            Console.WriteLine("7. Ordenar contatos por telefone");
-            Console.WriteLine("8. Sair");
+            Console.WriteLine("2. Excluir contato por telefone");
+            Console.WriteLine("3. Excluir contato por nome");
+            Console.WriteLine("4. Ver contatos");
+            Console.WriteLine("5. Procurar contato por nome");
+            Console.WriteLine("6. Procurar contato por telefone");
+            Console.WriteLine("7. Ordenar contatos por nome");
+            Console.WriteLine("8. Ordenar contatos por telefone");
+            Console.WriteLine("9. Sair");
             Console.WriteLine();
 
             Console.WriteLine("Escolha uma opção: ");
@@ -105,13 +105,19 @@ class Program
                     agenda.AdicionarContato(nome, telefone);
                     Console.WriteLine("Contato adicionado com sucesso!");
                     break;
-                case "2" or "Excluir":
+                case "2" or "Excluir por telefone":
                     Console.WriteLine("Digite o telefone do contato que deseja excluir:");
                     int telefoneExclusao = Convert.ToInt32(Console.ReadLine());
                     agenda.ExcluirContatoPorTelefone(telefoneExclusao);
                     Console.WriteLine("Contato excluído com sucesso!");
                     break;
-                case "3" or "Listar":
+                case "3" or "Excluir por nome":
+                    Console.WriteLine("Digite o nome do contato que deseja excluir:");
+                    string nomeExclusao = Console.ReadLine();
+                    agenda.ExcluirContatoPorNome(nomeExclusao);
+                    Console.WriteLine("Contato excluído com sucesso!");
+                    break;
+                case "4" or "Listar":
                     List<Contato> listaContatos = agenda.ListarTodosContatos();
                     Console.WriteLine("Lista Telefônica:");
                     foreach (Contato contato in listaContatos)
@@ -122,7 +128,7 @@ class Program
                         Console.WriteLine("-------------------------------");
                     }
                     break;
-                case "4" or "Procurar Contato":
+                case "5" or "Procurar Contato":
                     Console.WriteLine("Digite o nome do contato que deseja procurar:");
                     string nomeProcura = Console.ReadLine();
                     List<Contato> contatosPorNome = agenda.BuscarContatoPorNome(nomeProcura);
@@ -132,7 +138,7 @@ class Program
                         Console.WriteLine("Nome: " + contato.Nome + " - Telefone: " + contato.Telefone);
                     }
                     break;
-                case "5" or "Procurar Telefone":
+                case "6" or "Procurar Telefone":
                     Console.WriteLine("Digite o telefone do contato que deseja procurar:");
                     int telefoneProcura = Convert.ToInt32(Console.ReadLine());
                     Contato contatoPorTelefone = agenda.BuscarContatoPorTelefone(telefoneProcura);
@@ -148,7 +154,7 @@ class Program
                         Console.WriteLine("Nenhum contato encontrado para o telefone informado.");
                     }
                     break;
-                case "6" or "Ordenar Nome":
+                case "7" or "Ordenar Nome":
                     List<Contato> contatosOrdenadosPorNome = agenda.OrdenarContatosPorNome();
                     Console.WriteLine("Contatos ordenados por nome:");
                     foreach (Contato contato in contatosOrdenadosPorNome)
@@ -159,7 +165,7 @@ class Program
                         Console.WriteLine("-------------------------------");
                     }
                     break;
-                case "7" or "Ordenar Telefone":
+                case "8" or "Ordenar Telefone":
                     List<Contato> contatosOrdenadosPorTelefone = agenda.OrdenarContatosPorTelefone();
                     Console.WriteLine("Contatos ordenados por telefone:");
                     foreach (Contato contato in contatosOrdenadosPorTelefone)
@@ -170,7 +176,7 @@ class Program
                         Console.WriteLine("-------------------------------");
                     }
                     break;
-                case "8":
+                case "9":
                     executar = false;
                     break;
                 default:
